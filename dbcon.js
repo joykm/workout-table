@@ -7,4 +7,13 @@ var pool = mysql.createPool({
   database        : 'heroku_157efba39ed7be4'
 });
 
+pool.getConnection(function(err, connection){
+    if(err){
+        console.log("Could not connect to database.")
+    }
+    else {
+    	console.log("Successfully connected to database.")
+    }
+});
+
 module.exports.pool = pool;
