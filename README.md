@@ -7,4 +7,4 @@ HTML           |  Node.JS
 &nbsp;         |  Express
 &nbsp;         |  Sessions
 &nbsp;         |  Cors
-&nbsp;         |  Mysql
+&nbsp;         |  My SQL
