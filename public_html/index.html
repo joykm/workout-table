@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Document</title>
+    <!-- jQuery-->
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+
+    <title>Workout Table</title>
     
 </head>
 <body>
@@ -12,15 +15,15 @@
     <!-- Name, Reps, Weight, Unit, Date, Submit Button -->
     <h1>Add form</h1>
     <form id="addForm">
-        <input type="text" id="name" name="name" placeholder="Name" required />
-        <input type="number" id="reps" name="reps" placeholder="Reps" required />
-        <input type="number" id="weight" name="weight" placeholder="Weight" required />
+        <input class="form-items" type="text" id="name" name="name" placeholder="Name" required />
+        <input class="form-items" type="number" id="reps" name="reps" placeholder="Reps" required />
+        <input class="form-items" type="number" id="weight" name="weight" placeholder="Weight" required />
         <label for="lbs">lbs</label>
-        <input id="lbs" type="radio" name="unit" value="0" checked />
+        <input class="form-items" id="lbs" type="radio" name="unit" value="0" checked />
         <label for="kgs">kgs</label>
-        <input id="kgs" type="radio" name="unit" value="1" /> 
-        <input type="date" id="date" name="date" required /> 
-        <input type="submit" value="submit" />
+        <input class="form-items" id="kgs" type="radio" name="unit" value="1" /> 
+        <input class="form-items" type="date" id="date" name="date" required /> 
+        <input class="form-items" type="submit" value="submit" />
     </form>
 
     <!-- Table of Data -->

@@ -7,6 +7,7 @@ var CORS = require('cors');
 // Setting up file for using express, the port, json, urlencoded, and Cors.
 var app = express();
 app.set('port', 8080);
+app.use('/', express.static('public_html'))
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(CORS());
@@ -36,10 +37,11 @@ const getAllData = (res) => {
   }); 
 };
 
-// Upon a get request, respond with current table data 
-app.get('/',function(req,res,next){
-  getAllData(res);
-});
+// // Upon a get request, respond with current table data 
+// // SERVING THE FILE STATICALLY PREVENTS THIS. Work around was to use a null app.delete upon window.onload
+// app.get('/',function(req,res,next) {
+//   getAllData(res);
+// });
 
 // Collect data in body of post request, send it to my sql in proper format for intertQuery, respond to req with the current table data.
 app.post('/',function(req,res,next){

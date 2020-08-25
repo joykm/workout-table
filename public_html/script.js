@@ -1,6 +1,6 @@
-// http://web.engr.oregonstate.edu/~joyke/
+// const baseURL = `http://flip2.engr.oregonstate.edu:11711/`;
 
-const baseURL = `http://flip2.engr.oregonstate.edu:7901/`;
+const baseURL = `http://localhost:8080`;
 
 // Create the table.
 var table = document.createElement("table");
@@ -199,19 +199,34 @@ const makeFooterRow = () => {
 }
 
 // Toggle update and save buttons
-const toggleUpdateButton = (targetId) => {
+const toggleUpdateButton = (targetId, rowId) => {
     var toggle = document.getElementById(targetId);
     if (toggle.textContent == 'update') {
         toggle.textContent = "save";
         toggle.style.backgroundColor = "#0275d8";
         toggle.style.color = "white";
+        console.log(targetId + "  <--->  " + rowId)
+        $('button').prop('disabled', true);
+        $('button[id^=' + targetId + ']').prop('disabled', false);
+        $("#addForm :input").prop("disabled", true);
+
+        // $('input[type=button], input[type=submit]').attr('disabled', true);
+        // $('button').prop('disabled', false);
+
     }
     else {
+        $('button').prop('disabled', false);
+        $("#addForm :input").prop("disabled", false);
         toggle.textContent = "update";
         toggle.style.backgroundColor = "";
         toggle.style.color = "";
     }
 };
+
+function disableButtons()
+{
+    $(".update-delete-btn").attr("disabled", true);
+}
 
 // Disable row inputs when 'save' button is clicked
 const disableInputs = (rowId) => {
@@ -258,7 +273,7 @@ const putRequest = async (rowId) => {
 
     // Formats the object for json syntax, and sends put request to server.
     var req = new XMLHttpRequest();
-    req.open("PUT", "http://flip2.engr.oregonstate.edu:11711/", true);
+    req.open("PUT", baseURL, true);
     req.setRequestHeader("Content-Type", "application/json");
     req.addEventListener('load', function() {
         if(req.status >= 200 && req.status < 400) {
@@ -277,7 +292,7 @@ const deleteRequest = async (rowId) => {
     const id = rowId;
     deletePackage = {id};
     var req = new XMLHttpRequest();
-    req.open("DELETE", "http://flip2.engr.oregonstate.edu:11711/", true);
+    req.open("DELETE", baseURL, true);
     req.setRequestHeader("Content-Type", "application/json");
     req.addEventListener('load', function() {
         if(req.status >= 200 && req.status < 400) {
@@ -294,7 +309,7 @@ const deleteRequest = async (rowId) => {
 // Convienent button for calling a get requeset to /reset-table, and resetting the table.
 const resetRequest = async () => {
     var req = new XMLHttpRequest();
-    req.open("GET", "http://flip2.engr.oregonstate.edu:11711/reset-table", true);
+    req.open("GET", baseURL + "/reset-table", true);
     req.send(null);
     deleteTable();
 }
@@ -326,10 +341,11 @@ document.querySelector('#addForm').onsubmit = async (event) => {
 
     // Formats form object into json syntax and sends a put request to the server.
     var req = new XMLHttpRequest();
-    req.open("POST", "http://flip2.engr.oregonstate.edu:11711/", true);
+    req.open("POST", baseURL, true);
     req.setRequestHeader("Content-Type", "application/json");
     req.addEventListener('load', function() {
         if(req.status >= 200 && req.status < 400) {
+            // console.log(req.responseText)
             var response = JSON.parse(req.responseText);
             makeTable(response.rows);
         }
@@ -344,17 +360,37 @@ document.querySelector('#addForm').onsubmit = async (event) => {
 // Runs upon window loading. Requests get for existing data from server. Calls function to create the table if data is present.
 window.onload = async (event) => {
     var req = new XMLHttpRequest();
-    req.open("GET", "http://flip2.engr.oregonstate.edu:11711/", false);
+    req.open("DELETE", baseURL, true);
+    req.setRequestHeader("Content-Type", "application/json");
+    req.addEventListener('load', function() {
+        if(req.status >= 200 && req.status < 400) {
+            var response = JSON.parse(req.responseText);
+            makeTable(response.rows);
+        }
+        else {
+            console.log("Error in network request: " + req.statusText);  
+        }
+    });
     req.send(null);
-    storedRows = JSON.parse(req.responseText);
-    if (storedRows.rows.length != 0) {
-        // console.log(storedRows);
-        // console.log(storedRows.rows);
-        // console.log(storedRows.rows[0]);
-        // console.log(storedRows.rows[0].id);
-        makeTable(storedRows.rows);
-    }
 };
+
+
+// LOCAL CODE --> Was not working as I'm serving the html statically. Workaround above uses a null delete request.
+// Runs upon window loading. Requests get for existing data from server. Calls function to create the table if data is present.
+// window.onload = async (event) => {
+//     var req = new XMLHttpRequest();
+//     req.open("GET", baseURL, false);
+//     req.send(null);
+//     console.log(req.responseText)
+//     storedRows = JSON.parse(req.responseText);
+//     if (storedRows.rows.length != 0) {
+//         // console.log(storedRows);
+//         // console.log(storedRows.rows);
+//         // console.log(storedRows.rows[0]);
+//         // console.log(storedRows.rows[0].id);
+//         makeTable(storedRows.rows);
+//     }
+// };
 
 // One listener on the table; event deligation to handle all update, delete,save, and reset buttons in the table.
 document.querySelector('#workoutsTable').onclick = async (event) => {
@@ -385,3 +421,4 @@ document.querySelector('#workoutsTable').onclick = async (event) => {
         resetRequest();
     }
 };
+
