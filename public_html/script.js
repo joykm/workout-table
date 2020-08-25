@@ -304,7 +304,7 @@ const deleteRequest = async (rowId) => {
 // Convienent button for calling a get requeset to /reset-table, and resetting the table.
 const resetRequest = async () => {
     var req = new XMLHttpRequest();
-    req.open("GET", baseURL + "/reset-table", true);
+    req.open("GET", baseURL + "reset-table", true);
     req.send(null);
     deleteTable();
 }
