@@ -4,7 +4,7 @@ var pool = mysql.createPool({
   host            : 'us-cdbr-east-02.cleardb.com',
   user            : 'bb7c32d165ca39',
   password        : '302f9dce',
-  // database        : 'cs290_joyke'
+  database        : 'heroku_157efba39ed7be4'
 });
 
 module.exports.pool = pool;
