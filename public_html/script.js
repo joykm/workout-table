@@ -1,6 +1,6 @@
 // const baseURL = `http://flip2.engr.oregonstate.edu:11711/`;
 
-const baseURL = `http://localhost:8080`;
+const baseURL = `workout-table.herokuapp.com`;
 
 // Create the table.
 var table = document.createElement("table");
