@@ -360,7 +360,9 @@ window.onload = async (event) => {
     req.addEventListener('load', function() {
         if(req.status >= 200 && req.status < 400) {
             var response = JSON.parse(req.responseText);
-            makeTable(response.rows);
+            if (response.rows.length != 0) {
+               makeTable(response.rows); 
+            }
         }
         else {
             console.log("Error in network request: " + req.statusText);  
