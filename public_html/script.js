@@ -223,11 +223,6 @@ const toggleUpdateButton = (targetId, rowId) => {
     }
 };
 
-function disableButtons()
-{
-    $(".update-delete-btn").attr("disabled", true);
-}
-
 // Disable row inputs when 'save' button is clicked
 const disableInputs = (rowId) => {
     const inputs = ['name', 'reps', 'weight', 'radio1row', 'radio2row', 'date'];
