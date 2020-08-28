@@ -5,6 +5,6 @@ Front-End      | Back-End
 ---------------|---------
 HTML           |  Node.JS
 Javascript     |  Express
-&nbsp;         |  Sessions
+&nbsp;         |  Session
 &nbsp;         |  Cors
 &nbsp;         |  My SQL
