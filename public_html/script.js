@@ -1,5 +1,3 @@
-// const baseURL = `http://flip2.engr.oregonstate.edu:11711/`;
-
 const baseURL = `https://workout-table.herokuapp.com/`;
 
 // Create the table.
@@ -209,10 +207,6 @@ const toggleUpdateButton = (targetId, rowId) => {
         $('button').prop('disabled', true);
         $('button[id^=' + targetId + ']').prop('disabled', false);
         $("#addForm :input").prop("disabled", true);
-
-        // $('input[type=button], input[type=submit]').attr('disabled', true);
-        // $('button').prop('disabled', false);
-
     }
     else {
         $('button').prop('disabled', false);
@@ -370,24 +364,6 @@ window.onload = async (event) => {
     });
     req.send(null);
 };
-
-
-// LOCAL CODE --> Was not working as I'm serving the html statically. Workaround above uses a null delete request.
-// Runs upon window loading. Requests get for existing data from server. Calls function to create the table if data is present.
-// window.onload = async (event) => {
-//     var req = new XMLHttpRequest();
-//     req.open("GET", baseURL, false);
-//     req.send(null);
-//     console.log(req.responseText)
-//     storedRows = JSON.parse(req.responseText);
-//     if (storedRows.rows.length != 0) {
-//         // console.log(storedRows);
-//         // console.log(storedRows.rows);
-//         // console.log(storedRows.rows[0]);
-//         // console.log(storedRows.rows[0].id);
-//         makeTable(storedRows.rows);
-//     }
-// };
 
 // One listener on the table; event deligation to handle all update, delete,save, and reset buttons in the table.
 document.querySelector('#workoutsTable').onclick = async (event) => {
