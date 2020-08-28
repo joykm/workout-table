@@ -39,12 +39,6 @@ const getAllData = (res) => {
   }); 
 };
 
-// // Upon a get request, respond with current table data 
-// // SERVING THE FILE STATICALLY PREVENTS THIS. Work around was to use a null app.delete upon window.onload
-// app.get('/',function(req,res,next) {
-//   getAllData(res);
-// });
-
 // Collect data in body of post request, send it to my sql in proper format for intertQuery, respond to req with the current table data.
 app.post('/',function(req,res,next){
   var {name, reps, weight, unit, date} = req.body;
